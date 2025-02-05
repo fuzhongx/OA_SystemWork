@@ -1,5 +1,5 @@
 <template>
-  1234
+  主页
 </template>
 
 <script>
