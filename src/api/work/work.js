@@ -14,3 +14,10 @@ export function getDaiBan_Type(params){
         params
     })
 }
+export function getDaiBan_Message(params){
+    return service({
+        url:'/api/ent/company/message',
+        method:'get',
+        params
+    })
+}
