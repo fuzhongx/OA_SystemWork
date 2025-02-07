@@ -12,12 +12,8 @@
     <div>
       <el-menu active-text-color="#ffd04b" background-color="#fff" class="el-menu-vertical-demo menu-r"
         default-active="9" :collapse="isCollapse" text-color="#000" @open="handleOpen" @close="handleClose" router>
-        <el-menu-item>
-          <template #title>
-                <span class="menu-title-hidden" v-if="isCollapse"> {{ data.TITLE }}</span>
-              </template>
-          <span class="menu-title"> {{ data.TITLE }}</span>
-        </el-menu-item>
+                <div class="menu-title-hidden" v-if="isCollapse"> {{ data.TITLE }}</div>
+                <div class="menu-title" v-else> {{ data.TITLE }}</div>
         <template v-for="items in data.childrenList" :key="items.menu_path">
           <template v-if="!items.hidden">
              <!-- 第一层 -->
@@ -134,14 +130,24 @@ const handleClose = (key, keyPath) => {
 }
 
 .menu-title {
-  // padding: 15px 15px 15px 10px;
-  font-size: 18px;
-  font-weight: 800;
+    line-height: 56px;
+ 
+    font-size: 18px;
+    font-weight: 800;
+    padding-left: 20px;
+    font-variant: diagonal-fractions;
+    transition: all 0.1s;
 }
 .menu-title-hidden{
-  padding: 0px;
-  font-size: 18px;
-  font-weight: 800;
+    width: 64px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    line-height: 56px;
+    font-size: 18px;
+    font-weight: 800;
+    font-variant: diagonal-fractions;
+    transition: all 0.1s;
 }
 .p-l-10 {
   padding: 0 0 0 15px !important;

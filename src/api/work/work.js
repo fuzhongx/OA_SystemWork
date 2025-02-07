@@ -21,3 +21,17 @@ export function getDaiBan_Message(params){
         params
     })
 }
+export function getKuaijieRukou_menus(params){
+    return service({
+        url:'/api/ent/user/work/menus',
+        method:'get',
+        params
+    })
+}
+export function getQiyeDongtai_list(params){
+    return service({
+        url:'/api/ent/notice/list',
+        method:'get',
+        params
+    })
+}

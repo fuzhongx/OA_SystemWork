@@ -24,5 +24,6 @@ const changeOpen=()=>{
     display:flex;
     padding-left: 20px;
     align-items: center;
+    z-index:999;
 }
 </style>

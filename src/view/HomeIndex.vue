@@ -31,6 +31,6 @@ import HeaderIndex from "@/view/layout/HeaderIndex.vue";
 .el-main {
   height: 100%;
   width: 100%;
-    --el-main-padding: 14px;
+  --el-main-padding: 14px;
 }
 </style>
