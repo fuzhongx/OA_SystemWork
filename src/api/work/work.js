@@ -35,3 +35,17 @@ export function getQiyeDongtai_list(params){
         params
     })
 }
+export function yejiTongji_list(params){
+    return service({
+        url:'api/ent/user/work/statistics/0',
+        method:'get',
+        params
+    })
+}
+export function TOP_list(params){
+    return service({
+        url:'api/ent/user/work/count',
+        method:'get',
+        params
+    })
+}

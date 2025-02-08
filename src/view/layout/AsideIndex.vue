@@ -17,7 +17,7 @@
         <template v-for="items in data.childrenList" :key="items.menu_path">
           <template v-if="!items.hidden">
              <!-- 第一层 -->
-            <el-menu-item :key="items.menu_path" v-if="hasOnlychildren(items)" :index="items.menu_path">
+            <el-menu-item :key="items.menu_path" v-if="hasOnlychildren(items)" :index="items.menu_path" class="items-text-s">
               <el-icon>
                   <location />
                 </el-icon>
@@ -28,7 +28,7 @@
             </el-menu-item>
 
                <!-- 第一展开层 -->
-            <el-sub-menu v-else :index="items.menu_path">
+            <el-sub-menu v-else :index="items.menu_path" class="items-text-s">
               <template #title>
                 <el-icon>
                   <location />
@@ -38,7 +38,7 @@
 
               <!-- 第二层 -->
               <template v-for="childs in items.children" :key="childs.menu_path">
-                <el-menu-item :index="childs.menu_path"  :key="childs.menu_path" v-if="hasOnlychildrenChildren(childs)">
+                <el-menu-item :index="childs.menu_path"  :key="childs.menu_path" v-if="hasOnlychildrenChildren(childs)" class="items-text-s">
                   
                     <template #title>
                 <el-icon>
@@ -48,7 +48,7 @@
               </template>
                 </el-menu-item>
 
-              <el-sub-menu v-else :index="childs.menu_path">
+              <el-sub-menu v-else :index="childs.menu_path" class="items-text-s">
               <template #title>
                 <el-icon>
                   <location />
@@ -124,7 +124,9 @@ const handleClose = (key, keyPath) => {
   width: 164px;
   min-height: 100vh;
 }
-
+.items-text-s{
+  font-size: 14px;
+}
 .el-menu-item {
   padding: 0 20px;
 }

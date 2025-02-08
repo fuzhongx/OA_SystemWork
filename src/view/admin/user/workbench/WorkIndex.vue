@@ -6,28 +6,28 @@
           <div class="top-div">
             <div><img src="@/assets/imgs/dai-ban-ye-wu.png" alt="" /></div>
             <div>
-              <p>5</p>
+              <p>{{data.TOP_list.scheduleCount }}</p>
               <p>代办业务</p>
             </div>
           </div>
           <div class="top-div">
             <div><img src="@/assets/imgs/dai-wo-shen-pi.png" alt="" /></div>
             <div>
-              <p>5</p>
+              <p>{{data.TOP_list.applyCount }}</p>
               <p>我的申请</p>
             </div>
           </div>
           <div class="top-div">
             <div><img src="@/assets/imgs/dai-wo-shen-pi.png" alt="" /></div>
             <div>
-              <p>5</p>
+              <p>{{data.TOP_list.noticeCount }}</p>
               <p>待我审批</p>
             </div>
           </div>
           <div class="top-div">
             <div><img src="@/assets/imgs/qi-ye-dong-tai.png" alt="" /></div>
             <div>
-              <p>5</p>
+              <p>{{data.TOP_list.approveCountR }}</p>
               <p>企业动态</p>
             </div>
           </div>
@@ -63,25 +63,9 @@
           </div>
 
           <div class="dept-yeji">
-            <div class="dept-yeji-f-s">
-              <p>0</p>
-              <p>本月业绩</p>
-            </div>
-            <div class="dept-yeji-f-s">
-              <p>0</p>
-              <p>今日业绩</p>
-            </div>
-            <div class="dept-yeji-f-s">
-              <p>0</p>
-              <p>昨日业绩</p>
-            </div>
-            <div class="dept-yeji-f-s">
-              <p>0</p>
-              <p>今日新增客户</p>
-            </div>
-            <div class="dept-yeji-f-s">
-              <p>0</p>
-              <p>今日跟进记录</p>
+            <div class="dept-yeji-f-s" v-for="item in data.YEJI_list" :key="item.title">
+              <p>{{ item.value }}</p>
+              <p>{{ item.title }}</p>
             </div>
           </div>
         </div>
@@ -98,7 +82,7 @@
               v-for="item in data.DAIBAN"
               :key="item.id"
             >
-              <div><el-radio :label=item.id v-model="radio"> 123</el-radio></div>
+              <div><el-radio :label=item.id v-model="radio"></el-radio></div>
               <div>
                 <p>{{ item.title }}</p>
                 <p>{{ item.start_time }}</p>
@@ -192,7 +176,9 @@ import {
   getDaiBan_Type,
   getDaiBan_Message,
   getKuaijieRukou_menus,
-  getQiyeDongtai_list
+  getQiyeDongtai_list,
+  yejiTongji_list,
+  TOP_list,
 } from "@/api/work/work.js";
 // eslint-disable-next-line no-unused-vars
 const radio = ref(389);
@@ -201,7 +187,9 @@ const data = reactive({
   DAIBAN: [],
   MESSAGE: [],
   KUAIJIERUKOU_menus:[],
-  QIYEDONGTAI_list:[]
+  QIYEDONGTAI_list:[],
+  YEJI_list:[],
+  TOP_list:[]
 });
 onMounted(() => {
   getDaibanList();
@@ -215,10 +203,8 @@ const getMessage = () => {
     is_read: "",
   }).then((res) => {
     data.MESSAGE = res.data.data.list;
-    console.log(res.data.data.list);
   });
   getKuaijieRukou_menus().then(res=>{
-    console.log(res.data.data.checkd,111);
     data.KUAIJIERUKOU_menus=res.data.data.checkd
   })
   getQiyeDongtai_list({
@@ -226,7 +212,14 @@ const getMessage = () => {
     status: 1,
   }).then(res=>{
     data.QIYEDONGTAI_list=res.data.data.list
-    console.log(res.data.data.list,133);
+  })
+  yejiTongji_list().then(res=>{
+    console.log(res.data.data,'业绩');
+    data.YEJI_list=res.data.data
+  })
+  TOP_list().then(res=>{
+    console.log(res.data.data,'top');
+    data.TOP_list=res.data.data
   })
 };
 const getDaibanList = () => {
