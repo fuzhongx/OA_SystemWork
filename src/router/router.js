@@ -10,6 +10,7 @@ const routes=[
         name:'Index',
         component: () => import("@/view/HomeIndex.vue"),
         meta: { title: "主页" },
+        redirect:'/admin/user/workbench/index',
         children:[
           {
             path: "/admin/user/workbench/index",

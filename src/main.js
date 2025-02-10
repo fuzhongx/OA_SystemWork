@@ -4,6 +4,8 @@ import ElementPlus from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
 import router from './router/router'
+import '@/util/svg'
+import SvgIcon from '@/components/SvgIcon.vue'
 
 const app=createApp(App)
 // 定义特性标志
@@ -31,6 +33,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }
 app.use(ElementPlus)
+app.component('svg-icon',SvgIcon)
 app.use(router)
 app.mount('#app')
 

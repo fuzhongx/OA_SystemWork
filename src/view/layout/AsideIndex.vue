@@ -1,39 +1,35 @@
 <template>
   <div style="display: flex; height: 100vh">
     <div style="width: 64px">
-      <el-menu active-text-color="#ffd04b" background-color="#545c64" class="menu-l" default-active="2"
+      <el-menu active-text-color="#ffd04b" background-color="#545c64" class="menu-l" default-active="1"
         text-color="#fff">
+        <el-menu-item > <svg-icon icon-name='logo' class="logo-s-b" style="padding-left: 5px;"></svg-icon></el-menu-item>
         <el-menu-item :index="item.menu_path" v-for="item in data.menuList" :key="item.id" class="p-l-10"
-          @click="handleOpens(item)">   
+          @click="handleOpens(item)"> 
+          <span style="padding-bottom: 5px;"><svg-icon :icon-name=item.icon class="svg-margin-r-5 font-s" style="padding-left: 5px;"></svg-icon></span> 
           <span>{{ item.menu_name }}</span></el-menu-item>
       </el-menu>
     </div>
 
     <div>
       <el-menu active-text-color="#ffd04b" background-color="#fff" class="el-menu-vertical-demo menu-r"
-        default-active="9" :collapse="isCollapse" text-color="#000" @open="handleOpen" @close="handleClose" router>
+        default-active="1" :collapse="isCollapse" text-color="#000" @open="handleOpen" @close="handleClose" router>
                 <div class="menu-title-hidden" v-if="isCollapse"> {{ data.TITLE }}</div>
                 <div class="menu-title" v-else> {{ data.TITLE }}</div>
         <template v-for="items in data.childrenList" :key="items.menu_path">
           <template v-if="!items.hidden">
              <!-- 第一层 -->
             <el-menu-item :key="items.menu_path" v-if="hasOnlychildren(items)" :index="items.menu_path" class="items-text-s">
-              <el-icon>
-                  <location />
-                </el-icon>
               <template #title>
-              
+                <svg-icon :icon-name=items.icon class="svg-margin-r-5"></svg-icon>
                 <span>{{ items.menu_name }}</span>
               </template>
             </el-menu-item>
-
                <!-- 第一展开层 -->
-            <el-sub-menu v-else :index="items.menu_path" class="items-text-s">
+            <el-sub-menu v-else-if="items.icon!==''&&items.icon.trim()" :index="items.menu_path" class="items-text-s">
               <template #title>
-                <el-icon>
-                  <location />
-                </el-icon>
-                <span>{{ items.menu_name }}</span>
+               <svg-icon :icon-name=items.icon class="svg-margin-r-5"></svg-icon>
+                <span >{{ items.menu_name }}</span>
               </template>
 
               <!-- 第二层 -->
@@ -108,7 +104,9 @@ const hasOnlychildrenChildren=(childs)=>{
 const hasOnlychildren = (data) => {
   //不存在子集的情况
   if (!data.children) {
-    return true;
+    if(data.icon!=''&&data.icon.trim()){
+      return true;
+    }
   }
 };
 const handleOpen = (key, keyPath) => {
@@ -123,6 +121,13 @@ const handleClose = (key, keyPath) => {
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 164px;
   min-height: 100vh;
+}
+.logo-s-b{
+  background: #4c9de9;
+  font-size: 30px;
+}
+.svg-margin-r-5{
+  margin-right:5px;
 }
 .items-text-s{
   font-size: 14px;
@@ -151,10 +156,16 @@ const handleClose = (key, keyPath) => {
     font-variant: diagonal-fractions;
     transition: all 0.1s;
 }
+.font-s{
+  font-size: 18px;
+}
 .p-l-10 {
-  padding: 0 0 0 15px !important;
   margin: 0 auto;
   width: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .menu-l {
