@@ -10,7 +10,12 @@ export default {
     iconName: {
       type: String,
       required: true
-    }
+    },
+      // 颜色值
+      color: {
+            type: String,
+            default: "#efefef"
+        }
   },
   computed: {
     svgClass() {

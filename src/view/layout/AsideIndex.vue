@@ -3,16 +3,16 @@
     <div style="width: 64px">
       <el-menu active-text-color="#ffd04b" background-color="#545c64" class="menu-l" default-active="1"
         text-color="#fff">
-        <el-menu-item > <svg-icon icon-name='logo' class="logo-s-b" style="padding-left: 5px;"></svg-icon></el-menu-item>
+        <el-menu-item style="padding: 0;"> <svg-icon icon-name='logo' class="logo-s-b" style="padding-left: 14px;"></svg-icon></el-menu-item>
         <el-menu-item :index="item.menu_path" v-for="item in data.menuList" :key="item.id" class="p-l-10"
           @click="handleOpens(item)"> 
-          <span style="padding-bottom: 5px;"><svg-icon :icon-name=item.icon class="svg-margin-r-5 font-s" style="padding-left: 5px;"></svg-icon></span> 
+          <span style="padding-bottom: 5px;"><svg-icon  :icon-name=item.icon class="svg-margin-r-5 font-s" style="padding-left: 5px;"></svg-icon></span> 
           <span>{{ item.menu_name }}</span></el-menu-item>
       </el-menu>
     </div>
 
     <div>
-      <el-menu active-text-color="#ffd04b" background-color="#fff" class="el-menu-vertical-demo menu-r"
+      <el-menu active-text-color="#efeffe" background-color="#fff" class="el-menu-vertical-demo menu-r"
         default-active="1" :collapse="isCollapse" text-color="#000" @open="handleOpen" @close="handleClose" router>
                 <div class="menu-title-hidden" v-if="isCollapse"> {{ data.TITLE }}</div>
                 <div class="menu-title" v-else> {{ data.TITLE }}</div>
@@ -20,8 +20,8 @@
           <template v-if="!items.hidden">
              <!-- 第一层 -->
             <el-menu-item :key="items.menu_path" v-if="hasOnlychildren(items)" :index="items.menu_path" class="items-text-s">
+              <svg-icon :icon-name=items.icon class="svg-margin-r-5"></svg-icon>
               <template #title>
-                <svg-icon :icon-name=items.icon class="svg-margin-r-5"></svg-icon>
                 <span>{{ items.menu_name }}</span>
               </template>
             </el-menu-item>
@@ -37,18 +37,12 @@
                 <el-menu-item :index="childs.menu_path"  :key="childs.menu_path" v-if="hasOnlychildrenChildren(childs)" class="items-text-s">
                   
                     <template #title>
-                <el-icon>
-                  <location />
-                </el-icon>
                 <span> {{ childs.menu_name }}</span>
               </template>
                 </el-menu-item>
 
               <el-sub-menu v-else :index="childs.menu_path" class="items-text-s">
               <template #title>
-                <el-icon>
-                  <location />
-                </el-icon>
                 <span>{{ childs.menu_name }}</span>
               </template>
               <template v-if="childs.children">
@@ -123,8 +117,8 @@ const handleClose = (key, keyPath) => {
   min-height: 100vh;
 }
 .logo-s-b{
-  background: #4c9de9;
-  font-size: 30px;
+  // background: #4c9de9;
+  font-size: 40px;
 }
 .svg-margin-r-5{
   margin-right:5px;
@@ -132,6 +126,7 @@ const handleClose = (key, keyPath) => {
 .items-text-s{
   font-size: 14px;
 }
+
 .el-menu-item {
   padding: 0 20px;
 }
@@ -156,18 +151,28 @@ const handleClose = (key, keyPath) => {
     font-variant: diagonal-fractions;
     transition: all 0.1s;
 }
-.font-s{
-  font-size: 18px;
-}
+
 .p-l-10 {
   margin: 0 auto;
-  width: 64px;
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
+.p-l-10:hover{
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #075fb1 !important;
+}
+.p-l-10.is-active{
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  color: #075fb1 !important;
+  background: #fff !important;
+}
 .menu-l {
   width: 64px;
   z-index: 70;

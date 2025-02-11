@@ -27,7 +27,7 @@
           <div class="top-div">
             <div><img src="@/assets/imgs/qi-ye-dong-tai.png" alt="" /></div>
             <div>
-              <p>{{data.TOP_list.approveCountR }}</p>
+              <p>{{data.TOP_list.approveCount }}</p>
               <p>企业动态</p>
             </div>
           </div>
