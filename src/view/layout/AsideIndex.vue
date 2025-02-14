@@ -3,8 +3,8 @@
     <div style="width: 64px">
       <el-menu active-text-color="#ffd04b" background-color="#545c64" class="menu-l" default-active="1"
         text-color="#fff">
-        <el-menu-item style="padding: 0;"> <svg-icon icon-name='logo' class="logo-s-b" style="padding-left: 14px;"></svg-icon></el-menu-item>
-        <el-menu-item :index="item.menu_path" v-for="item in data.menuList" :key="item.id" class="p-l-10"
+        <el-menu-item style="padding:8px;height:70px;" class="menu-logo"> <img src="@/assets/OA.png" alt="" class="menu-imgs"></el-menu-item>
+        <el-menu-item :index="item.menu_path" v-for="item in data.menuList" :key="item.id" class="p-l-10 menu-menuList"
           @click="handleOpens(item)"> 
           <span style="padding-bottom: 5px;"><svg-icon  :icon-name=item.icon class="svg-margin-r-5 font-s" style="padding-left: 5px;"></svg-icon></span> 
           <span>{{ item.menu_name }}</span></el-menu-item>
@@ -116,6 +116,13 @@ const handleClose = (key, keyPath) => {
   width: 164px;
   min-height: 100vh;
 }
+.menu-logo:hover{
+background-color: #1e84e3;
+}
+.menu-imgs{
+  width: 50px;
+  height: 50px;
+}
 .logo-s-b{
   // background: #4c9de9;
   font-size: 40px;
@@ -126,7 +133,13 @@ const handleClose = (key, keyPath) => {
 .items-text-s{
   font-size: 14px;
 }
-
+.items-text-s:active{
+  color: #1e84e3;
+}
+.items-text-s.is-active{
+  color: #1e84e3;
+  background-color: #1e84e3;
+}
 .el-menu-item {
   padding: 0 20px;
 }
@@ -153,20 +166,25 @@ const handleClose = (key, keyPath) => {
 }
 
 .p-l-10 {
-  margin: 0 auto;
+  margin: 5px auto;
   font-size: 14px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.p-l-10:hover{
+.menu-menuList
+{
+  width: 50px;
+  height: 50px;
+}
+.menu-menuList:hover{
   width: 50px;
   height: 50px;
   border-radius: 10px;
   background-color: #075fb1 !important;
 }
-.p-l-10.is-active{
+.menu-menuList.is-active{
   width: 50px;
   height: 50px;
   border-radius: 10px;
