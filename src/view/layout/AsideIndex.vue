@@ -6,7 +6,9 @@
         <el-menu-item style="padding:8px;height:70px;" class="menu-logo"> <img src="@/assets/OA.png" alt="" class="menu-imgs"></el-menu-item>
         <el-menu-item :index="item.menu_path" v-for="item in data.menuList" :key="item.id" class="p-l-10 menu-menuList"
           @click="handleOpens(item)"> 
-          <span style="padding-bottom: 5px;"><svg-icon  :icon-name=item.icon class="svg-margin-r-5 font-s" style="padding-left: 5px;"></svg-icon></span> 
+          <span style="padding-bottom: 5px;"><svg-icon   fill="red" :icon-name=item.icon class="svg-margin-r-5 font-s" style="padding-left: 5px;">
+            <path fill="#1e84e3"></path>
+          </svg-icon></span> 
           <span>{{ item.menu_name }}</span></el-menu-item>
       </el-menu>
     </div>
@@ -20,7 +22,9 @@
           <template v-if="!items.hidden">
              <!-- 第一层 -->
             <el-menu-item :key="items.menu_path" v-if="hasOnlychildren(items)" :index="items.menu_path" class="items-text-s">
-              <svg-icon :icon-name=items.icon class="svg-margin-r-5"></svg-icon>
+              <svg-icon :icon-name=items.icon class="svg-margin-r-5">
+             
+              </svg-icon>
               <template #title>
                 <span>{{ items.menu_name }}</span>
               </template>
@@ -72,6 +76,10 @@ const data = reactive({
   menuList: [],
   childrenList: [],
   TITLE: "",
+  color:{
+    type: String,
+    default: '#1e84e3',
+  }
 });
 bus.on("isCollapse", (data) => {
   isCollapse.value = data;
@@ -133,12 +141,17 @@ background-color: #1e84e3;
 .items-text-s{
   font-size: 14px;
 }
-.items-text-s:active{
-  color: #1e84e3;
-}
+// .items-text-s:active{
+//   color: #1e84e3;
+// }
+// .el-sub-menu__title:active{
+//   color: #1e84e3;
+// }
 .items-text-s.is-active{
   color: #1e84e3;
-  background-color: #1e84e3;
+}
+.el-sub-menu__title.is-active{
+  color: #1e84e3;
 }
 .el-menu-item {
   padding: 0 20px;
@@ -188,8 +201,8 @@ background-color: #1e84e3;
   width: 50px;
   height: 50px;
   border-radius: 10px;
-  color: #075fb1 !important;
-  background: #fff !important;
+  color: #f7f8f8 !important;
+  background: #075fb1  !important;
 }
 .menu-l {
   width: 64px;

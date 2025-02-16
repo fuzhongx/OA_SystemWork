@@ -13,6 +13,7 @@
     "core-js": "^3.8.3",
     "element-plus": "^2.9.3",
     "mitt": "^3.0.1",
+    "svg-sprite-loader": "^6.0.11",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
@@ -25,8 +26,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.83.4",
-    "sass-loader": "^16.0.4",
-    "svg-sprite-loader": "^6.0.11"
+    "sass-loader": "^16.0.4"
   },
   "eslintConfig": {
     "root": true,

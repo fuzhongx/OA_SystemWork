@@ -309,7 +309,6 @@ const getDaibanList = () => {
   padding: 20px;
   display: flex;
   flex-flow: wrap;
-  justify-content: space-between;
   .kuajie-content-box{
     width: 25%;
     display: flex;
@@ -454,7 +453,7 @@ const getDaibanList = () => {
 .dept-yeji {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 
   .dept-yeji-f-s {
     width: 20%;
