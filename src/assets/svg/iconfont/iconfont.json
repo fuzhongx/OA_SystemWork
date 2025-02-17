@@ -1,0 +1,44 @@
+{
+  "id": "4830421",
+  "name": "审批",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11135503",
+      "name": "补卡@2x",
+      "font_class": "bukax",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "11442021",
+      "name": "信件-方",
+      "font_class": "xinjian-fang",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "11644481",
+      "name": "申请假期留校",
+      "font_class": "shenqingjiaqiliuxiao",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "12723679",
+      "name": "盖章",
+      "font_class": "gaizhang",
+      "unicode": "e7fd",
+      "unicode_decimal": 59389
+    },
+    {
+      "icon_id": "19633763",
+      "name": "请假",
+      "font_class": "qingjia",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}
