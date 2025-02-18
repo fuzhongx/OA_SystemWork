@@ -6,7 +6,7 @@ import 'element-plus/dist/index.css'
 import router from './router/router'
 import '@/util/svg'
 import SvgIcon from '@/components/SvgIcon.vue'
-import '@/assets/svg/iconfont/iconfont.css'
+import "@/assets/icon/iconfont.css"
 
 const app=createApp(App)
 // 定义特性标志

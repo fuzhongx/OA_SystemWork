@@ -7,7 +7,7 @@
         <div class="cont-padd-14">
             <div class="cont-title">
                 <div class="cont-tltle-img">
-                   <div><i class="iconfont icon-shenpi" style="width: 30px; height: 30px;"></i></div>
+                   <i class="iconfont icon-cexiao color" ></i>
                    <div><span class="cont-kaipiao">开票</span><span class="cont-chexiao">已撤销</span></div>
                 </div>
                 <div class="cont-btn">查看详情</div>
@@ -32,6 +32,7 @@
 </template>
 
 <script setup>
+import "@/assets/icon/iconfont.css"
 import { onMounted, reactive, ref } from "vue";
 import { DaiShenPi } from "@/api/user/Approval/index";
 import { ElMessageBox } from "element-plus";
@@ -66,6 +67,9 @@ const DaiShenPis = (e) => {
 </script>
 
 <style lang="scss" scoped>
+.color{
+  color: orange;
+}
 .cont-kaipiao{
   font-weight: 700;
     font-size: 13px;
