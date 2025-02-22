@@ -2,175 +2,85 @@
   <div class="contair">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
       <el-tab-pane label="待审批" name="1">
-        <div>
-          <div>
-            <el-form
-              :inline="true"
-              :model="formInline"
-              class="demo-form-inline"
-            >
-              <el-form-item>
-                <el-input placeholder="请输入人员" clearable />
-              </el-form-item>
-              <el-form-item>
-                <el-select placeholder="审批类型" clearable>
-                  <el-option label="Zone one" value="shanghai" />
-                  <el-option label="Zone two" value="beijing" />
-                </el-select>
-              </el-form-item>
-              <el-form-item>
-                <el-date-picker
-                  v-model="value2"
-                  type="daterange"
-                  :shortcuts="shortcuts"
-                  range-separator="至"
-                  start-placeholder="开始时间"
-                  end-placeholder="结束时间"
-                />
-              </el-form-item>
-            </el-form>
-          </div>
-          <div
-            class="cont-padd-14"
-            v-for="item in data.DATA_LIST"
-            :key="item.id"
-          >
-            <div class="cont-title">
-              <div class="cont-tltle-img">
-                <i class="iconfont icon-cexiao color"></i>
-                <div>
-                  <span class="cont-kaipiao">{{ item.approve.name }}</span>
-                  <span class="color1 cont-chexiao" v-if="item.status == 1"
-                    >已通过</span
-                  >
-                  <span class="color2 cont-chexiao" v-if="item.status == 0"
-                    >审核中</span
-                  >
-                  <span class="color3 cont-chexiao" v-if="item.status == 2"
-                    >已拒绝</span
-                  >
-                  <span class="color4 cont-chexiao" v-if="item.status == -1"
-                    >已撤销</span
-                  >
-                </div>
-              </div>
-              <div class="cont-btn">查看详情</div>
-            </div>
-            <div class="cont-text">
-              <div>
-                <img
-                  src="https://shmily-album.oss-cn-shenzhen.aliyuncs.com/admin_face/face9.png"
-                  alt=""
-                />
-              </div>
-              <div>
-                <p>
-                  <span class="content-m-20">{{ item.card.name }}</span>
-                  <span> 创建于{{ item.created_at }}</span>
-                </p>
-                <p
-                  v-for="cont in item.content"
-                  :key="cont.id"
-                  class="cont-content"
-                >
-                  <span
-                    ><span class="content-title content-m-20" v-if="cont.value"
-                      >{{ cont.label }}:</span
-                    >
-                    <span>{{ cont.value }}</span></span
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+         <ShowView></ShowView>
       </el-tab-pane>
-      <el-tab-pane label="全部" name=""></el-tab-pane>
-      <el-tab-pane label="已处理" name="2"></el-tab-pane>
-      <el-tab-pane label="抄送我的" name="3"></el-tab-pane>
-      <el-tab-pane label="已撤销" name="4"></el-tab-pane>
+      <el-tab-pane label="全部" name=" ">
+        <ShowView></ShowView>
+      </el-tab-pane>
+      <el-tab-pane label="已处理" name="2">
+        <ShowView></ShowView>
+      </el-tab-pane>
+      <el-tab-pane label="抄送我的" name="3">
+        <ShowView></ShowView>
+      </el-tab-pane>
+      <el-tab-pane label="已撤销" name="4">
+        <ShowView></ShowView>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script setup>
-import "@/assets/icon/iconfont.css";
-import { onMounted, reactive, ref } from "vue";
-import { DaiShenPi } from "@/api/user/Approval/index";
-import { ElMessageBox } from "element-plus";
-
-onMounted(() => {
-  DaiShenPis();
-});
-const activeName = ref("1");
-const data = reactive({
-  DATA_LIST: [],
-});
-const value2 = ref('')
-const shortcuts = [
-{
-    text: '最近1天',
-    value: () => {
-      const end = new Date()
-      const start = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 1)
-      return [start, end]
-    },
-  },
-  {
-    text: '最近7天',
-    value: () => {
-      const end = new Date()
-      const start = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-      return [start, end]
-    },
-  },
-  {
-    text: '最近一个月',
-    value: () => {
-      const end = new Date()
-      const start = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-      return [start, end]
-    },
-  },
-  {
-    text: '最近三个月',
-    value: () => {
-      const end = new Date()
-      const start = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-      return [start, end]
-    },
-  },
-]
+import ShowView from '@/view/admin/user/examine/compoment/ShowView.vue';
+import {ref} from 'vue'
+import bus from "@/util/Bus";
+const activeName = ref(" ");
 const handleClick = (tab) => {
-  DaiShenPis(tab.props.name);
+  // DaiShenPis(tab.props.name);
+  bus.emit('activeName',tab.props.name)
 };
-const DaiShenPis = (e) => {
-  DaiShenPi({
-    page: 1,
-    limit: 15,
-    types: 1,
-    time: "",
-    status: "",
-    approve_id: "",
-    name: "",
-    verify_status: e,
-  })
-    .then((res) => {
-      data.DATA_LIST = res.data.data.list;
-      console.log(data.DATA_LIST);
-    })
-    .catch((error) => {
-      ElMessageBox.error(error.response.data.msg);
-    });
-};
-
 </script>
 
 <style lang="scss" scoped>
+.option-active {
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 34px;
+}
+
+.m-color {
+  color: #fff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.m-color:focus,
+.m-color:hover {
+  background: #46a6ff;
+  border-color: #46a6ff;
+  color: #fff;
+}
+
+.m-l-10:focus,
+.m-l-10:hover {
+  background: #f16643;
+  border-color: #f16643;
+  color: #fff;
+}
+
+.m-l-10 {
+  margin-left: 10px;
+  color: #fff;
+  background-color: #ed4014;
+  border-color: #ed4014;
+}
+
+.cont-jujue {
+  padding: 7px 15px;
+  height: 28px;
+  font-size: 12px;
+  border-radius: 3px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid #dcdfe6;
+}
+
+.cont-sroll {
+  height: 700px;
+  overflow: auto;
+}
+
 .demo-form-inline .el-input {
   --el-input-width: 220px;
 }
@@ -178,6 +88,7 @@ const DaiShenPis = (e) => {
 .demo-form-inline .el-select {
   --el-select-width: 220px;
 }
+
 .color1 {
   border-color: #e9e9eb;
   color: #909399;
@@ -296,7 +207,7 @@ const DaiShenPis = (e) => {
   background: #fff;
 }
 
-.demo-tabs > .el-tabs__content {
+.demo-tabs>.el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;

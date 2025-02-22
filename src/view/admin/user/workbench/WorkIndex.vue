@@ -416,11 +416,11 @@ const getDaibanList = () => {
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 
   .daiban-content-box {
     width: 32%;
     height: 80px;
+    margin-right: 14px;
     -webkit-box-align: center;
     -ms-flex-align: center;
     padding: 12px 12px;

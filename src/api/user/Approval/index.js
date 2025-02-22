@@ -7,3 +7,10 @@ export function DaiShenPi(params){
         params
     })
 }
+export function DaiShenPi_list(params){
+    return service({
+        url:'api/ent/approve/config/search/1',
+        method:'get',
+        params
+    })
+}
