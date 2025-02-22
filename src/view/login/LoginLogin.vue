@@ -145,9 +145,29 @@ const pasdFull = () => {
     data.checkedValue = false;
   }
 };
-
-//  res.data.data.tokenType + ' ' +
-const submitForm = async (formEl) => {
+// const submitForm=()=>{
+//       LoginForm.loading = true;
+//       admin({
+//         account:  LoginForm.username,
+//         password:  LoginForm.password,
+//         captcha: LoginForm.Num,
+//         key:LoginForm.captchaKey,
+//         phone: "",
+//         verification_code: "",
+//       }).then((res) => {
+//           localStorage.setItem("token", res.data.data.token);
+//           localStorage.setItem("tokenType", res.data.data.token_type);
+//           localStorage.removeItem("selectKey");
+//           localStorage.setItem("selectKey", "/homeindex");
+//           router.push("/Index");
+//           ElMessage.success("登录成功");
+//           LoginForm.loading = false;
+//         }).catch((error) => {
+//           ElMessage.error(error.data);
+//           LoginForm.loading = false;
+//         })
+//     }
+const inpSubmit=async(formEl)=>{
   if (!formEl) return;
   await formEl.validate((valid) => {
     if (valid) {
@@ -155,6 +175,34 @@ const submitForm = async (formEl) => {
       admin({
         account:  LoginForm.username,
         password:  LoginForm.password,
+        captcha: LoginForm.Num,
+        key:LoginForm.captchaKey,
+        phone: "",
+        verification_code: "",
+      }).then((res) => {
+          localStorage.setItem("token", res.data.data.token);
+          localStorage.setItem("tokenType", res.data.data.token_type);
+          localStorage.removeItem("selectKey");
+          localStorage.setItem("selectKey", "/homeindex");
+          router.push("/Index");
+          ElMessage.success("登录成功");
+          LoginForm.loading = false;
+        }).catch((error) => {
+          ElMessage.error(error);
+          LoginForm.loading = false;
+        });
+    }
+  });
+}
+//  res.data.data.tokenType + ' ' +
+const submitForm = async (formEl) => {
+  if (!formEl) return;
+  await formEl.validate((valid) => {
+    if (valid) {
+      LoginForm.loading = true;
+      admin({
+        account: LoginForm.username,
+        password: LoginForm.password,
         captcha: LoginForm.Num,
         key:LoginForm.captchaKey,
         phone: "",
@@ -169,7 +217,7 @@ const submitForm = async (formEl) => {
           ElMessage.success("登录成功");
           LoginForm.loading = false;
         })
-        .catch((error) => {
+        .catch(error => {
           ElMessage.error(error.response.data.msg);
           LoginForm.loading = false;
         });
