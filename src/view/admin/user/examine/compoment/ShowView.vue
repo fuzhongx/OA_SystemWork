@@ -69,12 +69,12 @@
     <div class="dra-hearder">
         <div class="dra-img"><img src="https://shmily-album.oss-cn-shenzhen.aliyuncs.com/admin_face/face9.png" alt=""></div>
         <div>
-            <p>{{ data.dra_List.name}}的{{data.dra_List.approve }}</p>
+            <p>{{ data.dra_List.card.name}}的<span>{{ data.dra_List.approve.name }}</span></p>
             <p>
                 <span class="color1 cont-chexiao" v-if="data.dra_List.status == 1">已通过</span>
-                    <span class="color2 cont-chexiao" v-if="data.dra_List.status == 0">审核中</span>
-                    <span class="color3 cont-chexiao" v-if="data.dra_List.status == 2">已拒绝</span>
-                    <span class="color4 cont-chexiao" v-if="data.dra_List.status == -1">已撤销</span>
+                <span class="color2 cont-chexiao" v-if="data.dra_List.status == 0">审核中</span>
+                <span class="color3 cont-chexiao" v-if="data.dra_List.status == 2">已拒绝</span>
+                <span class="color4 cont-chexiao" v-if="data.dra_List.status == -1">已撤销</span>
             </p>
         </div>
     </div>
@@ -83,9 +83,20 @@
             <span></span>
             <span>提交审批</span>
         </div>
-        <div class="dra-cont-text">
-        <div><span>客户名称</span>：<span>内容</span></div>
+        <div class="dra-cont-text" v-for="conts in data.dra_List.content" :key="conts.id">
+        <div><span>{{conts.label}}</span>：<span>{{conts.value}}</span></div>
         </div>
+        <div v-for="shenhe in data.dra_List.users" :key="shenhe.id">
+          <div class="dra-cont-h">
+            <span></span>
+            <span>{{shenhe.title}}</span>
+        </div>
+        <div class="dra-img dra-shenhe" v-for="user in shenhe.users" :key="user.id">
+          <img :src=" user.card.avatar" alt="">
+          <el-tree :data="user.card" :props="defaultProps" @node-click="handleNodeClick" />
+        </div>
+        </div>
+       
     </div>
   </el-drawer>
 </template>
@@ -102,6 +113,10 @@ onMounted(() => {
   DaiShenPis();
   NavList();
 });
+const defaultProps = {
+  children: 'card',
+  name: 'name',
+}
 const token=localStorage.getItem('token')
 const drawer=ref(true)
 const checkAll = ref(false)
@@ -112,8 +127,10 @@ const data = reactive({
   NAV_LIST: [],
   name:'',
   dra_List:{
-    name:'',
-    approve:''
+    card:'',
+    approve:'',
+    content:[],
+    users:[]
   }
 });
 const value2 = ref("");
@@ -165,15 +182,18 @@ const btnLook=(id,type)=>{
         url:'https://demo.tuoluojiang.com/api/ent/approve/apply/'+id+'/edit',
         method:'get',
         headers:{
-      "authorization" :"Bearer " + token
+             "authorization" :"Bearer " + token
         },
         params:{
             types:type
         }
     }).then(res=>{
-      data.dra_List.name=res.data.data.card.name
+      data.dra_List.card=res.data.data.card
       data.dra_List.approve=res.data.data.approve.name
-      console.log(res.data.data);
+      data.dra_List=res.data.data
+      data.dra_List.content=res.data.data.content
+      data.dra_List.users=res.data.data.users
+      console.log( data.dra_List.users,666);
       
     })
 }
@@ -193,13 +213,12 @@ watch(value, (val) => {
     indeterminate.value = true
   }
 })
-
-const handleCheckAll = (value) => {
+const handleCheckAll = (e) => {
   indeterminate.value = false
-  if (value) {
-    value.value = data.NAV_LIST.value.value.map((_) => _.value)
+  if (e) {
+    e.value = data.NAV_LIST.value.map((_) => _.value)
   } else {
-    value.value = []
+    e.value = []
   }
 }
 
@@ -225,6 +244,9 @@ const DaiShenPis = (e) => {
 </script>
 
 <style lang="scss" scoped>
+.dra-shenhe{
+  padding-left: 20px;
+}
 .dra-cont-text{
     padding: 10px 20px;
 }
