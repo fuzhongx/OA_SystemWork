@@ -69,7 +69,7 @@
     <div class="dra-hearder">
         <div class="dra-img"><img src="https://shmily-album.oss-cn-shenzhen.aliyuncs.com/admin_face/face9.png" alt=""></div>
         <div>
-            <p>{{ data.dra_List.card.name}}的<span>{{ data.dra_List.approve.name }}</span></p>
+            <div>{{data.card.name}}的<span>{{ data.approve.name }}</span></div>
             <p>
                 <span class="color1 cont-chexiao" v-if="data.dra_List.status == 1">已通过</span>
                 <span class="color2 cont-chexiao" v-if="data.dra_List.status == 0">审核中</span>
@@ -89,11 +89,22 @@
         <div v-for="shenhe in data.dra_List.users" :key="shenhe.id">
           <div class="dra-cont-h">
             <span></span>
-            <span>{{shenhe.title}}</span>
+            <span>审核人</span>
         </div>
-        <div class="dra-img dra-shenhe" v-for="user in shenhe.users" :key="user.id">
-          <img :src=" user.card.avatar" alt="">
-          <el-tree :data="user.card" :props="defaultProps" @node-click="handleNodeClick" />
+        <div class="dra-img dra-shenhe" v-for="item in data.users[0].users" :key="item.id">
+          <div class="dra-img"><img :src=item.card.avatar alt=""></div>
+          <div>{{ item.card.name }}</div>
+        </div>
+
+        <div>
+          <h4>留言</h4>
+          <div v-for="reply in data.reply" :key="reply.id">
+             <div class="dra-img"><img :src=reply.card.avatar alt=""></div>
+            <div>{{ reply.content }}</div>
+           <div>
+            
+           </div><span>{{ reply.content }}</span>
+          </div>
         </div>
         </div>
        
@@ -113,10 +124,7 @@ onMounted(() => {
   DaiShenPis();
   NavList();
 });
-const defaultProps = {
-  children: 'card',
-  name: 'name',
-}
+
 const token=localStorage.getItem('token')
 const drawer=ref(true)
 const checkAll = ref(false)
@@ -126,12 +134,12 @@ const data = reactive({
   DATA_LIST: [],
   NAV_LIST: [],
   name:'',
-  dra_List:{
-    card:'',
-    approve:'',
-    content:[],
-    users:[]
-  }
+  dra_List:[],
+  card:{},
+  approve:{},
+  content:[],
+  users:[],
+  reply:[]
 });
 const value2 = ref("");
 const shortcuts = [
@@ -188,13 +196,14 @@ const btnLook=(id,type)=>{
             types:type
         }
     }).then(res=>{
-      data.dra_List.card=res.data.data.card
-      data.dra_List.approve=res.data.data.approve.name
       data.dra_List=res.data.data
-      data.dra_List.content=res.data.data.content
-      data.dra_List.users=res.data.data.users
-      console.log( data.dra_List.users,666);
-      
+      data.card=res.data.data.card
+      data.approve=res.data.data.approve
+      data.content=res.data.data.content
+      data.users=res.data.data.users
+      data.reply=res.data.data.reply
+      console.log( data.users,666);
+      console.log( data.content,6126);
     })
 }
 const NavList = () => {
@@ -235,7 +244,6 @@ const DaiShenPis = (e) => {
   })
     .then((res) => {
       data.DATA_LIST = res.data.data.list;
-      console.log(data.DATA_LIST);
     })
     .catch((error) => {
       ElMessageBox.error(error.response.data.msg);
@@ -246,6 +254,18 @@ const DaiShenPis = (e) => {
 <style lang="scss" scoped>
 .dra-shenhe{
   padding-left: 20px;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+}
+.dra-img{
+
+}
+.dra-img img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
 }
 .dra-cont-text{
     padding: 10px 20px;
